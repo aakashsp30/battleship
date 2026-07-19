@@ -2,6 +2,7 @@ import { Ship } from "./Ship";
 
 export function GameBoard() {
   const board = Array.from({ length: 10 }, () => Array(10).fill(null));
+  const attackedCells = [];
   const missedAttacks = [];
 
   function getShipCells(x, y, length, direction) {
@@ -44,11 +45,16 @@ export function GameBoard() {
     return board;
   }
 
+  function getAttackedCells() {
+    return attackedCells;
+  }
+
   function getMissedAttacks() {
     return missedAttacks;
   }
 
   function receiveAttack(x, y) {
+    attackedCells.push([x, y]);
     if (board[x][y] != null) {
       board[x][y].hit();
     } else {
@@ -71,6 +77,7 @@ export function GameBoard() {
     placeShip,
     receiveAttack,
     getBoard,
+    getAttackedCells,
     getMissedAttacks,
     allShipsSunk,
   };

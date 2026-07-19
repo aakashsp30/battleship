@@ -47,4 +47,14 @@ describe("GameBoard Factory", () => {
     const report = gameboard.allShipsSunk();
     expect(report).toBe(false);
   });
+
+  test("getAttackedCells tracks all attacked coordinates", () => {
+    const gameboard = GameBoard();
+    gameboard.placeShip(2, 2, 5, "horizontal");
+    gameboard.receiveAttack(2, 5);
+    gameboard.receiveAttack(3, 5);
+    const report = gameboard.getAttackedCells();
+    expect(report).toContainEqual([2, 5]);
+    expect(report).toContainEqual([3, 5]);
+  });
 });
