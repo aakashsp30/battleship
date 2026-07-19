@@ -57,8 +57,10 @@ export function GameBoard() {
     attackedCells.push([x, y]);
     if (board[x][y] != null) {
       board[x][y].hit();
+      return "hit";
     } else {
       missedAttacks.push([x, y]);
+      return "miss";
     }
   }
 

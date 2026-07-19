@@ -51,8 +51,9 @@ describe("GameBoard Factory", () => {
   test("getAttackedCells tracks all attacked coordinates", () => {
     const gameboard = GameBoard();
     gameboard.placeShip(2, 2, 5, "horizontal");
-    gameboard.receiveAttack(2, 5);
-    gameboard.receiveAttack(3, 5);
+    expect(gameboard.receiveAttack(2, 5)).toBe("hit");
+    expect(gameboard.receiveAttack(3, 5)).toBe("hit");
+    expect(gameboard.receiveAttack(4, 5)).toBe("miss");
     const report = gameboard.getAttackedCells();
     expect(report).toContainEqual([2, 5]);
     expect(report).toContainEqual([3, 5]);
