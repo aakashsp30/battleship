@@ -4,6 +4,7 @@ initGame();
 renderGame(currentState());
 const cb = document.getElementById("computer-board");
 cb.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("cell")) return;
   let x = parseInt(e.target.dataset.x);
   let y = parseInt(e.target.dataset.y);
   const alreadyAttacked = currentState()
