@@ -1,4 +1,4 @@
-import { Ship } from "./Ship";
+import { Ship } from "./Ship.js";
 
 export function GameBoard() {
   const board = Array.from({ length: 10 }, () => Array(10).fill(null));

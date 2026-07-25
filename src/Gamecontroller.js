@@ -1,4 +1,4 @@
-import { Player } from "./factories/Player";
+import { Player } from "./factories/Player.js";
 let human, computer, winner;
 const SHIP_LAYOUT = [
   { length: 5, x: 0, y: 0, direction: "horizontal" },
