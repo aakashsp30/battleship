@@ -1,20 +1,29 @@
 import { Player } from "./factories/Player.js";
 let human, computer, winner;
-const SHIP_LAYOUT = [
-  { length: 5, x: 0, y: 0, direction: "horizontal" },
-  { length: 4, x: 0, y: 2, direction: "horizontal" },
-  { length: 3, x: 0, y: 4, direction: "horizontal" },
-  { length: 3, x: 0, y: 6, direction: "horizontal" },
-  { length: 2, x: 0, y: 8, direction: "horizontal" },
-];
+const SHIP_LENGTHS = [5, 4, 3, 3, 2];
+
+function placeShipsRandomly(gameboard) {
+  SHIP_LENGTHS.forEach((length) => {
+    let placed = false;
+    while (!placed) {
+      const x = Math.floor(Math.random() * 10);
+      const y = Math.floor(Math.random() * 10);
+      const direction = Math.random() < 0.5 ? "horizontal" : "vertical";
+      placed = gameboard.placeShip(length, x, y, direction);
+    }
+  });
+}
 
 function initGame() {
   human = Player("human");
   computer = Player("computer");
-  SHIP_LAYOUT.forEach((ship) => {
-    human.gameboard.placeShip(ship.length, ship.x, ship.y, ship.direction);
-    computer.gameboard.placeShip(ship.length, ship.x, ship.y, ship.direction);
-  });
+  placeShipsRandomly(human.gameboard);
+  placeShipsRandomly(computer.gameboard);
+}
+
+function rerollHumanShips() {
+  human = Player("human");
+  placeShipsRandomly(human.gameboard);
 }
 
 function playRound(x, y) {
@@ -65,4 +74,4 @@ function currentState() {
   };
 }
 
-export { initGame, playRound, currentState };
+export { initGame, playRound, currentState, rerollHumanShips };
