@@ -1,4 +1,4 @@
-import { getCellDisplayState } from "../../Domcontroller";
+import { getCellDisplayState } from "../Domcontroller";
 import { GameBoard } from "../factories/Gameboard";
 
 describe("Domcontroller", () => {
