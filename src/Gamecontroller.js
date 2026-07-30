@@ -1,5 +1,6 @@
 import { Player } from "./factories/Player.js";
 let human, computer, winner;
+let targetQueue = [];
 const SHIP_LENGTHS = [5, 4, 3, 3, 2];
 
 function placeShipsRandomly(gameboard) {
@@ -31,8 +32,19 @@ function playRound(x, y) {
   if (!isGameOver()) {
     humanAttackResult = computer.gameboard.receiveAttack(x, y);
     if (!isGameOver()) {
-      const [compX, compY] = legalCompMove();
+      const [compX, compY] = getComputerMove();
       computerAttackResult = human.gameboard.receiveAttack(compX, compY);
+      if (computerAttackResult === "hit") {
+        const neighbors = getAdjacentCells(compX, compY);
+        const validNeighbors = neighbors.filter(([nx, ny]) => {
+          const inBounds = nx >= 0 && nx <= 9 && ny >= 0 && ny <= 9;
+          const alreadyAttacked = human.gameboard
+            .getAttackedCells()
+            .some(([ax, ay]) => ax === nx && ay === ny);
+          return inBounds && !alreadyAttacked;
+        });
+        targetQueue.push(...validNeighbors);
+      }
     }
   }
 
@@ -47,6 +59,23 @@ function playRound(x, y) {
     winner,
     computerAttackResult,
   };
+}
+
+function getAdjacentCells(x, y) {
+  return [
+    [x + 1, y],
+    [x - 1, y],
+    [x, y + 1],
+    [x, y - 1],
+  ];
+}
+
+function getComputerMove() {
+  if (targetQueue.length !== 0) {
+    return targetQueue.pop();
+  } else {
+    return legalCompMove();
+  }
 }
 
 function legalCompMove() {
