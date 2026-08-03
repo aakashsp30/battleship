@@ -27,6 +27,14 @@ function rerollHumanShips() {
   placeShipsRandomly(human.gameboard);
 }
 
+function clearHumanShips() {
+  human = Player("human");
+}
+
+function placeHumanShip(length, x, y, direction) {
+  return human.gameboard.placeShip(length, x, y, direction);
+}
+
 function playRound(x, y) {
   let humanAttackResult, computerAttackResult;
   if (!isGameOver()) {
@@ -103,4 +111,12 @@ function currentState() {
   };
 }
 
-export { initGame, playRound, currentState, rerollHumanShips };
+export {
+  initGame,
+  playRound,
+  currentState,
+  rerollHumanShips,
+  clearHumanShips,
+  placeHumanShip,
+  SHIP_LENGTHS,
+};
