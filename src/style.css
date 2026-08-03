@@ -33,3 +33,31 @@
 .hidden {
   display: none;
 }
+
+.palette {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.palette-ship {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: grab;
+}
+
+.palette-ship-segments {
+  display: flex;
+}
+
+.palette-ship-segments.vertical {
+  flex-direction: column;
+}
+
+.palette-ship-segment {
+  width: 25px;
+  height: 25px;
+  background-color: #555;
+  border: 1px solid #333;
+}
